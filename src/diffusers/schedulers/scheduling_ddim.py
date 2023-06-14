@@ -360,6 +360,10 @@ class DDIMScheduler(SchedulerMixin, ConfigMixin):
         # 7. compute x_t without "random noise" of formula (12) from https://arxiv.org/pdf/2010.02502.pdf
         prev_sample = alpha_prod_t_prev ** (0.5) * pred_original_sample + pred_sample_direction
 
+        # pred_original_sample_coeff
+        # pred_original_sample_coeff = alpha_prod_t_prev ** (0.5) - (1 - alpha_prod_t_prev - std_dev_t**2) ** 0.5 * alpha_prod_t ** (0.5) / beta_prod_t ** (0.5)
+        # current_sample_coeff = (1 - alpha_prod_t_prev - std_dev_t**2) ** 0.5 / beta_prod_t ** (0.5)
+
         if eta > 0:
             if variance_noise is not None and generator is not None:
                 raise ValueError(
